@@ -43,8 +43,13 @@ sensor:
 `signs:`
 | | |
 |--|--|
-| unique_id*  | `unieke_id` as used in the `http://rss.opendata.belfla.be/rss/verkeersdata` response |
 | site_name*  | RSS name displayed on the verkeerscentrum.be website, `RSS-` ommitted. E.g: `N14`. _When using this option, all individual signs will be added as sensor. The name will be appended with `{Sign, Pre-sign, Post-sign} {number}`._ |
-| name  | name of the sign. (Required) |
+| name*  | name of the sign. |
 
-`*` One of these properties is required, only one can be provided.
+`individual_signs:`
+| | |
+|--|--|
+| site_name*  | RSS name displayed on the verkeerscentrum.be website, `RSS-` ommitted. E.g: `N14`. _When using this option, all individual signs will be added as sensor. The name will be appended with `{Sign, Pre-sign, Post-sign} {number}`._ |
+| name*  | name of the sign. |
+
+`*` required
