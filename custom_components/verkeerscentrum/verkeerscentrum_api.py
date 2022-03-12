@@ -5,7 +5,7 @@ from xml.etree import ElementTree
 
 
 class VerkeerscentrumAPI:
-    def getRSS(self, ids):
+    def getRSS(self, ids, siteNames):
         headers = {"Accept-Encoding": "gzip", "Host": "rss.opendata.belfla.be"}
 
         try:
@@ -26,14 +26,22 @@ class VerkeerscentrumAPI:
                 if child.tag == "rss_bord":
                     unieke_id = child.attrib.get("unieke_id")
 
-                    if not unieke_id in ids:
-                        continue
+                    keepId = unieke_id in ids
+                    keepSiteName = None
 
                     bord = VerkeerscentrumRSSBord(unieke_id)
 
                     for bord_child in child:
+                        if not keepSiteName and bord.abbameldanaam:
+                            continue
+
                         if bord_child.tag == "abbameldanaam":
                             bord.abbameldanaam = bord_child.text
+
+                        for site_name in siteNames:
+                            if site_name in bord.abbameldanaam:
+                                keepSiteName = True
+                                break
 
                         if bord_child.tag == "technische_toestand":
                             for technische_toestand_child in bord_child:
@@ -74,6 +82,9 @@ class VerkeerscentrumAPI:
                                     bord.knipperlicht_status = (
                                         aangevraagde_boodschap_child.text
                                     )
+
+                    if not keepId and not keepSiteName:
+                        continue
 
                     data.rss_borden.append(bord)
 
