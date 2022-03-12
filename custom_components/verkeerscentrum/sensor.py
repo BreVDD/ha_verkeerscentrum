@@ -1,5 +1,5 @@
 """Verkeerscentrum sensor."""
-from homeassistant.components.verkeerscentrum.classes import (
+from .classes import (
     RSS_SIGN,
     VerkeersCentrumDateTimeSensor,
 )
