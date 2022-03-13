@@ -52,6 +52,8 @@ class RSS_SIGN(VerkeersCentrumSensor):
             return "mdi:close-thick"
         if state.startswith("SNELH"):
             return "mdi:car-speed-limiter"
+        if state.startswith("EINDE"):
+            return "mdi:cancel"
         if state == "UITROEP_NU":
             return "mdi:alert-outline"
         if state == "FILE":
